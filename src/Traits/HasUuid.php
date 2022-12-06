@@ -12,7 +12,7 @@ trait HasUuid
      *
      * @return void
      */
-    protected static function boot()
+    protected static function bootHasUuid()
     {
         parent::boot();
 
