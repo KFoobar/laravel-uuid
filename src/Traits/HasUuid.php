@@ -14,8 +14,6 @@ trait HasUuid
      */
     protected static function bootHasUuid()
     {
-        parent::boot();
-
         static::creating(function (Model $model) {
             $model->addDefaultUuid($model);
         });
@@ -25,6 +23,11 @@ trait HasUuid
         });
     }
 
+    /**
+     * Adds a default uuid.
+     *
+     * @param \Illuminate\Database\Eloquent\Model $model
+     */
     protected function addDefaultUuid(Model $model)
     {
         if (empty($model->uuid)) {
