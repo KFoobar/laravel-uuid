@@ -8,6 +8,13 @@ use Illuminate\Support\Str;
 trait HasUuid
 {
     /**
+     * The database column name to store the UUID.
+     *
+     * @var string
+     */
+    protected $uuidColumnName = 'uuid';
+
+    /**
      * Bootstrap the model and its traits.
      *
      * @return void
@@ -15,23 +22,25 @@ trait HasUuid
     protected static function bootHasUuid()
     {
         static::creating(function (Model $model) {
-            $model->addDefaultUuid($model);
+            if (empty($model->{$model->getUuidColumnName()})) {
+                $model->{$model->getUuidColumnName()} = Str::uuid()->toString();
+            }
         });
 
         static::saving(function (Model $model) {
-            $model->addDefaultUuid($model);
+            if (empty($model->{$model->getUuidColumnName()})) {
+                $model->{$model->getUuidColumnName()} = Str::uuid()->toString();
+            }
         });
     }
 
     /**
-     * Adds a default uuid.
+     * Get the name of the UUID column.
      *
-     * @param \Illuminate\Database\Eloquent\Model $model
+     * @return string
      */
-    protected function addDefaultUuid(Model $model)
+    public function getUuidColumnName()
     {
-        if (empty($model->uuid)) {
-            $model->uuid = Str::uuid()->toString();
-        }
+        return $this->uuidColumnName;
     }
 }
