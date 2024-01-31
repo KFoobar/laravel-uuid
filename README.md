@@ -1,29 +1,34 @@
-# Eloquent UUID trait for Laravel
+# Laravel UUID Trait for Eloquent Models
 
-UUID trait for models in Laravel 5.5+
+Enhance your Laravel models with UUID functionality seamlessly using our trait, compatible with Laravel 5.5 and newer versions.
 
-## Installation
+## Installation Guide
 
-You can install the package via composer:
+Install the package through Composer with the following command:
 
+```bash
+composer require kfoobar/laravel-uuid
 ```
-$ composer require kfoobar/laravel-uuid
-```
 
-## Basic Usage
+## How to Use
 
-First, add the KFoobar\Uuid\Traits\HasUuid trait to your model(s):
+To integrate UUIDs into your models, simply use the `KFoobar\Uuid\Traits\HasUuid` trait in your model class like so:
 
-```
+```php
+use Illuminate\Database\Eloquent\Model;
+use KFoobar\Uuid\Traits\HasUuid;
+
 class Post extends Model
 {
     use HasUuid;
 }
 ```
 
+This will automatically generate a UUID for each new model instance.
+
 ## Contributing
 
-Contributions are welcome!
+We encourage contributions from the community! Whether it's improving the code, fixing bugs, or enhancing documentation, your input is valuable.
 
 ## License
 
