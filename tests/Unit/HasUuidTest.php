@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Schema;
+use KFoobar\Uuid\Test\Fixtures\Page;
 use KFoobar\Uuid\Test\Fixtures\Post;
 use KFoobar\Uuid\Test\Unit\TestCase;
 
@@ -32,6 +33,13 @@ class HasUuidTest extends TestCase
         Schema::create('posts', function (Blueprint $table) {
             $table->id('id');
             $table->uuid('uuid');
+            $table->string('heading')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('pages', function (Blueprint $table) {
+            $table->id('id');
+            $table->uuid('public_id');
             $table->string('heading')->nullable();
             $table->timestamps();
         });
@@ -116,5 +124,17 @@ class HasUuidTest extends TestCase
         Post::select(['id', 'heading'])->first()->update(['heading' => 'Dolor ipsum lorem']);
 
         $this->assertSame($uuid, Post::first()->uuid);
+    }
+
+    /**
+     * Test that the UUID is stored in a custom column.
+     *
+     * @return void
+     */
+    public function testCreateModelWithCustomUuidColumn(): void
+    {
+        Page::create(['heading' => 'Lorem ipsum dolor']);
+
+        $this->assertMatchesRegularExpression($this->regex, Page::first()->public_id);
     }
 }

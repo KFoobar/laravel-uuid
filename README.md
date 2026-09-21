@@ -26,6 +26,19 @@ class Post extends Model
 
 This will automatically generate a UUID for each new model instance.
 
+## Custom Column Name
+
+The UUID is stored in the `uuid` column by default. To use another column, define a `UUID` constant on your model:
+
+```php
+class Post extends Model
+{
+    use HasUuid;
+
+    const UUID = 'public_id';
+}
+```
+
 ## Contributing
 
 We encourage contributions from the community! Whether it's improving the code, fixing bugs, or enhancing documentation, your input is valuable.

@@ -8,13 +8,6 @@ use Illuminate\Support\Str;
 trait HasUuid
 {
     /**
-     * The database column name to store the UUID.
-     *
-     * @var string
-     */
-    protected $uuidColumnName = 'uuid';
-
-    /**
      * Boot the UUID trait for a model.
      *
      * @return void
@@ -41,6 +34,6 @@ trait HasUuid
      */
     public function getUuidColumnName()
     {
-        return $this->uuidColumnName;
+        return defined(static::class.'::UUID') ? static::UUID : 'uuid';
     }
 }
