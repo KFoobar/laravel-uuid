@@ -1,6 +1,6 @@
 # Laravel UUID Trait for Eloquent Models
 
-Enhance your Laravel models with UUID functionality seamlessly using our trait, compatible with Laravel 5.5 and newer versions.
+Enhance your Laravel models with UUID functionality seamlessly using our trait, compatible with Laravel 5.6 and newer versions.
 
 ## Installation Guide
 
