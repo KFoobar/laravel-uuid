@@ -12,7 +12,7 @@ trait HasUuid
      *
      * @return void
      */
-    protected static function bootHasUuid()
+    protected static function bootHasUuid(): void
     {
         static::saving(function (Model $model): void {
             $column = $model->getUuidColumnName();
@@ -32,7 +32,7 @@ trait HasUuid
      *
      * @return string
      */
-    public function getUuidColumnName()
+    public function getUuidColumnName(): string
     {
         return defined(static::class.'::UUID') ? static::UUID : 'uuid';
     }
