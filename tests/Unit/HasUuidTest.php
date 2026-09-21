@@ -73,4 +73,13 @@ class HasUuidTest extends TestCase
         $this->assertNotNull($post->uuid);
         $this->assertMatchesRegularExpression($this->regex, $post->uuid);
     }
+
+    public function testUpdatePartiallyLoadedModelKeepsUuid(): void
+    {
+        $uuid = Post::create(['heading' => 'Lorem ipsum dolor'])->uuid;
+
+        Post::select(['id', 'heading'])->first()->update(['heading' => 'Dolor ipsum lorem']);
+
+        $this->assertSame($uuid, Post::first()->uuid);
+    }
 }

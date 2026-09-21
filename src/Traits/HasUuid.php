@@ -21,15 +21,15 @@ trait HasUuid
      */
     protected static function bootHasUuid()
     {
-        static::creating(function (Model $model) {
-            if (empty($model->{$model->getUuidColumnName()})) {
-                $model->{$model->getUuidColumnName()} = Str::uuid()->toString();
-            }
-        });
+        static::saving(function (Model $model): void {
+            $column = $model->getUuidColumnName();
 
-        static::saving(function (Model $model) {
-            if (empty($model->{$model->getUuidColumnName()})) {
-                $model->{$model->getUuidColumnName()} = Str::uuid()->toString();
+            if ($model->exists && ! array_key_exists($column, $model->getAttributes())) {
+                return;
+            }
+
+            if (empty($model->getAttribute($column))) {
+                $model->setAttribute($column, Str::uuid()->toString());
             }
         });
     }
