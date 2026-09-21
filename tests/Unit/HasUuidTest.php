@@ -13,8 +13,18 @@ class HasUuidTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $regex = '/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i';
+    /**
+     * The pattern of a version 4 UUID.
+     *
+     * @var string
+     */
+    protected string $regex = '/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i';
 
+    /**
+     * Create the tables for the test models.
+     *
+     * @return void
+     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -27,6 +37,11 @@ class HasUuidTest extends TestCase
         });
     }
 
+    /**
+     * Test that the model is an Eloquent model.
+     *
+     * @return void
+     */
     public function testModelIsModel(): void
     {
         $post = new Post;
@@ -34,7 +49,12 @@ class HasUuidTest extends TestCase
         $this->assertInstanceOf(Model::class, $post);
     }
 
-    public function testCreateModel()
+    /**
+     * Test that a UUID is generated when a model is created.
+     *
+     * @return void
+     */
+    public function testCreateModel(): void
     {
         $post = Post::create(['heading' => 'Lorem ipsum dolor']);
 
@@ -45,7 +65,12 @@ class HasUuidTest extends TestCase
         $this->assertMatchesRegularExpression($this->regex, $post->uuid);
     }
 
-    public function testUpdateModel()
+    /**
+     * Test that the UUID is kept when a model is updated.
+     *
+     * @return void
+     */
+    public function testUpdateModel(): void
     {
         $post = Post::create(['heading' => 'Lorem ipsum dolor']);
 
@@ -60,7 +85,12 @@ class HasUuidTest extends TestCase
         $this->assertEquals($firstUuid, $secondUuid);
     }
 
-    public function testSaveModelWithEmptyUuid()
+    /**
+     * Test that a new UUID is generated when the UUID is emptied.
+     *
+     * @return void
+     */
+    public function testSaveModelWithEmptyUuid(): void
     {
         $post = Post::create(['heading' => 'Lorem ipsum dolor']);
 
@@ -74,6 +104,11 @@ class HasUuidTest extends TestCase
         $this->assertMatchesRegularExpression($this->regex, $post->uuid);
     }
 
+    /**
+     * Test that the UUID is kept when a partially loaded model is updated.
+     *
+     * @return void
+     */
     public function testUpdatePartiallyLoadedModelKeepsUuid(): void
     {
         $uuid = Post::create(['heading' => 'Lorem ipsum dolor'])->uuid;

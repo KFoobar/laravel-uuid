@@ -15,7 +15,7 @@ trait HasUuid
     protected $uuidColumnName = 'uuid';
 
     /**
-     * Bootstrap the model and its traits.
+     * Boot the UUID trait for a model.
      *
      * @return void
      */
